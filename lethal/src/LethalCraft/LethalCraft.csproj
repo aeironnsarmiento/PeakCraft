@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Project properties -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>lethalcraft.LethalCraft</AssemblyName>
+    <AssemblyTitle>LethalCraft</AssemblyTitle>
+    <Version>0.1.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <!-- ThunderPipe properties -->
+  <PropertyGroup>
+    <IsThunderstorePackable>true</IsThunderstorePackable>
+    <ThunderstoreName>LethalCraft</ThunderstoreName>
+    <ThunderstoreDescription>Play Lethal Company as a Minecraft player: real Minecraft movement, HUD, inventory, block placing and digging inside the Company's moons. A port of SkyCraft. Solo only; needs your own Minecraft 26.3 Fabric instance.</ThunderstoreDescription>
+    <!--
+      Communities and package categories metadata for publishing with ThunderPipe.
+      Communities: https://thunderstore.io/api/experimental/community/
+      Categories: https://thunderstore.io/api/experimental/community/lethal-company/category/
+    -->
+    <ThunderstoreCommunities>lethal-company</ThunderstoreCommunities>
+    <ThunderstoreCategories>mods</ThunderstoreCategories>
+  </PropertyGroup>
+
+  <!--
+    Define mod files to copy to the relative BepInEx directory after build
+    and where they are packed to when building a Thunderstore package
+  -->
+  <ItemGroup>
+    <ModFile Include="$(TargetPath)" Destination="plugins/LethalCraft/" />
+    <!-- The Minecraft half: the Fabric mod jar, built with gradlew build in ../../../fabric. The player copies it into their Minecraft instance's mods folder. -->
+    <ModFile Include="$(SolutionRoot)../fabric/build/libs/skycraft-*.jar" Exclude="$(SolutionRoot)../fabric/build/libs/*-sources.jar" Destination="plugins/LethalCraft/" />
+  </ItemGroup>
+
+  <!-- Thunderstore package metadata -->
+  <ItemGroup>
+    <ThunderstorePackageFile Include="$(SolutionRoot)README.md" />
+    <ThunderstorePackageFile Include="$(SolutionRoot)CHANGELOG.md" />
+    <ThunderstorePackageFile Include="$(SolutionRoot)icon.png" />
+    <ThunderstorePackageFile Include="$(SolutionRoot)LICENSE" />
+
+    <ThunderstoreDependency Include="BepInEx-BepInExPack" Version="5.4.2305" />
+  </ItemGroup>
+</Project>

@@ -18,3 +18,6 @@ CMakeUserPresets.json
 fabric/run-guest*/
 __pycache__/
 *.pyc
+
+# built Modrinth instance file (tools/build_mrpack.py)
+tools/LethalCraft.mrpack
