@@ -1,214 +1,108 @@
-# SkyCraft
+# PeakCraft
 
-![SkyCraft: a Minecraft player walking through Riverwood with the Minecraft HUD](docs/screenshot.jpg)
+![PeakCraft: a Minecraft player on a tower of planks on PEAK's beach, with the Minecraft hotbar](docs/images/peakcraft-island.jpg)
 
-Play Skyrim as a Minecraft player. You move with Minecraft's physics, carry Minecraft's inventory
-and HUD, and place and break blocks in Skyrim's world. You fight Skyrim's NPCs with Minecraft
-weapons, and they fight back.
+Play [PEAK](https://store.steampowered.com/app/3527290/PEAK/) as a Minecraft player. You move with
+Minecraft's physics on PEAK's mountain, carry Minecraft's inventory and HUD, and place and break
+blocks that PEAK draws in its own world.
 
-Neither game is rewritten. Minecraft runs its own game logic, and Skyrim runs its world, NPCs,
-quests and saves. A Skyrim SKSE plugin and a Minecraft Fabric mod talk to each other through
-shared memory. Minecraft runs hidden in the background, and Skyrim draws everything.
+PeakCraft is a port of **[SkyCraft](https://github.com/chasmlol/SkyCraft) by
+[chasmlol](https://github.com/chasmlol)** (Minecraft inside Skyrim) to PEAK. Neither game is
+rewritten: Minecraft runs its own game logic hidden in the background, PEAK runs its airport,
+island, fog and campfires, and two small mods talk through shared memory.
 
-> **Status: early and experimental.** Expect rough edges, and back up your saves.
-> This is a fan project. It isn't affiliated with Mojang, Microsoft, Bethesda or ZeniMax, and you
-> need to own both games.
-
-## What works
-
-- **Movement:** Minecraft movement on Skyrim's terrain and buildings. That covers walking,
-  sprinting, jumping, crouching, swimming and falling, and Skyrim's collision is fed into
-  Minecraft's own collision.
-- **Blocks:** place and break blocks anywhere in Skyrim. They're drawn inside Skyrim's frame
-  with its sun, shadows, fog and weather. Minecraft lights (torches, lava, glowstone and so on)
-  light up Skyrim.
-- **Digging into Skyrim:** mine Skyrim's ground, rocks, roads and objects like Minecraft blocks.
-  What you dig out drops as the block it's made of (dirt under grass, then stone with ores, then
-  bedrock), and the hole is real for you, NPCs and items. TNT, creepers and other explosions blow
-  craters into Skyrim. Interiors and caves are solid stone behind their walls. What you dig is
-  saved in your Minecraft world. **Skyrim destruction: On/Off** in the top left of the pause menu
-  (O) turns it off (holes already dug stay).
-- **Block entities:** chests, beds, banners, heads, shulker boxes and similar blocks are drawn,
-  and pistons move blocks.
-- **Water and lava:** they flow over Skyrim's terrain, and Skyrim water swims like Minecraft
-  water.
-- **Combat:** hit Skyrim NPCs with any Minecraft weapon, including bows, tridents and TNT.
-  Damage is scaled to NPC level, and NPCs fight back.
-  - NPCs collide with blocks and path around them.
-  - Lava and fire hurt NPCs, and NPCs press pressure plates.
-- **Skyrim progression:**
-  - Your Skyrim skills level up from Minecraft play. Swords, maces and tools train
-    One-Handed; axes and spears train Two-Handed; bows and anything thrown train Archery.
-  - Shields train Block, and hits taken train Light or Heavy Armor depending on what you wear.
-  - Crafting gear trains Smithing, and crouching is Skyrim sneak, which trains Sneak.
-- **Camera and death:** Minecraft's F5 camera modes show your skin and armor in Skyrim. Dying
-  gives Skyrim's death camera with your Minecraft body ragdolling.
-- **Skyrim's own animations:** chairs, crafting stations, beds, pull levers, horses and scripted
-  scenes hand control to Skyrim until they finish.
-- **Multiplayer (Minecraft side only):** friends who also run SkyCraft can join your Minecraft
-  world over the internet (see [Playing with friends](#playing-with-friends)).
-
-## Requirements
-
-**Skyrim**
+> **Experimental, solo only.** A fan project. It isn't affiliated with Mojang, Microsoft, Landfall,
+> Aggro Crab, Bethesda or ZeniMax, and you need to own both games.
 
 | | |
 |---|---|
-| Skyrim Special Edition, **Anniversary Edition runtime** (1.6.x / 1.7.x) | Developed and tested on **1.7.104**. Not SE 1.5.97, not VR. |
-| [SKSE64](https://skse.silverlock.org/) | For your game version |
-| [Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444) | The "All in one (Anniversary Edition)" file |
+| ![Third person in PEAK's airport with a Minecraft skin and shield](docs/images/peakcraft-airport.jpg) | ![Glass, leaves, a torch and planks placed in the airport](docs/images/peakcraft-blocks.jpg) |
+| Your Minecraft skin, armour and held items in PEAK | Blocks lit and shadowed by PEAK |
 
-> **Heavily recommended: [Alternate Start - Live Another Life](https://www.nexusmods.com/skyrimspecialedition/mods/272).**
-> Skyrim's opening (the cart ride and Helgen) is heavily scripted and may not work with SkyCraft,
-> so you can get stuck. Alternate Start skips it and lets you choose where your new character
-> begins. Otherwise, play from a save made after Helgen.
+## What works
 
-**Minecraft**
+- **Movement:** walk, sprint, jump, sneak, fall and fly (Creative) with real Minecraft physics on
+  PEAK's terrain and buildings. Sneaking stops you at the edge of PEAK's ledges.
+- **Camera:** first person and both F5 third-person views. PEAK's mirrors show your Minecraft
+  body, animated, in first person too.
+- **HUD:** Minecraft's hotbar, hearts, chat, inventory and every other Minecraft screen, over
+  PEAK's picture.
+- **Blocks:** place and break blocks anywhere. They are hidden by PEAK's rocks in front of them and
+  lit by PEAK's sun. Arrows, dropped items, torches, chests and particles show too.
+- **PEAK's run:** the kiosk, the flight, the crash on the beach, luggage, campfires, the rising fog
+  and the ending all work, through one interact key (G).
+- **Survival:** the world starts in Creative, where nothing on the mountain hurts you.
+  `/gamemode survival` makes PEAK's hazards cost Minecraft hearts, and a Minecraft death kills
+  your scout.
+- **Safe fallback:** if Minecraft closes or hangs, PEAK gives you its own controls, camera and HUD
+  back within a few seconds, and links again when Minecraft returns.
 
-You only need **a Microsoft account that owns Minecraft: Java Edition**. SkyCraft comes with
-everything else: a portable [Prism Launcher](https://prismlauncher.org/) set up with Minecraft 26.3,
-[Fabric](https://fabricmc.net/), [Fabric API](https://modrinth.com/mod/fabric-api) and the SkyCraft
-Minecraft mod. Prism downloads Minecraft and Java itself.
+## Installing and playing
 
-Minecraft runs hidden next to Skyrim. Budget about 3 GB of extra RAM, about 1.5 GB of disk for
-Minecraft's own files, and a GPU that runs Minecraft 26.3.
+Requirements, install steps, controls and the full list of known limitations are in
+**[peak/README.md](peak/README.md)**, which is also the README of the mod package. In short:
 
-## Installing
+1. Build the package (below) and install it into a BepInEx profile for PEAK.
+2. Put `skycraft-<version>.jar` in the `mods` folder of your own Minecraft 26.3 Fabric instance and
+   add `--enable-native-access=ALL-UNNAMED` to its JVM arguments.
+3. Start Minecraft and leave it on the title screen, then start PEAK and begin a solo game.
 
-1. **Install `SkyCraft-<version>.zip`** with Mod Organizer 2 or Vortex, like any SKSE plugin.
-2. **Start Skyrim through SKSE.** The first time, SkyCraft unpacks its Minecraft to
-   `%LOCALAPPDATA%\SkyCraft` and a small **Prism Launcher** window asks you to sign in with your
-   Microsoft account. Alt-Tab to it, sign in, then go back to Skyrim. Prism downloads Minecraft,
-   Fabric and Java (a few minutes, first time only), and Skyrim's corner messages tell you when
-   Minecraft is ready.
-3. **After that it's automatic.** Minecraft starts with Skyrim with no window and no sound, opens
-   its SkyCraft world by itself (a new Survival world, created on your PC), and quits when Skyrim
-   closes.
-
-Updating: install the new SkyCraft zip over the old one. The next start updates the Minecraft side
-too and keeps your sign-in and your world.
-
-Uninstalling: remove the mod, then delete `%LOCALAPPDATA%\SkyCraft`. That folder holds Prism, your
-Microsoft sign-in (Prism's), Minecraft's files and your SkyCraft world.
-
-### Using your own launcher
-
-`Data/SKSE/Plugins/SkyCraft.ini` can point SkyCraft at your own Prism, MultiMC or `.bat` file instead:
-
-```ini
-[Minecraft]
-bStartWithSkyrim = 1              ; 0: start Minecraft yourself, any way you like
-sLauncher =                       ; empty: the Minecraft that comes with SkyCraft
-sArguments = --launch SkyCraft    ; what your launcher needs to start the SkyCraft instance
-```
-
-Your instance needs Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API, Java 25 and
-`skycraft-fabric-<version>.jar` (from the release), plus `-Dskycraft.startHidden=true` in its
-JVM arguments if it should stay hidden from the start. SkyCraft never starts a second Minecraft if
-one with the mod is already running. It starts Minecraft through Windows' shell, so under Mod
-Organizer Minecraft stays outside MO2's virtual file system and doesn't keep MO2 locked.
-
-## Playing with friends
-
-Everyone needs their own Skyrim with SkyCraft. Only the Minecraft world is shared: blocks, items,
-mobs and each other. Up to 100 players. Each player keeps their own Skyrim world, NPCs and quests.
-
-1. **Host:** press **O** (Minecraft's menu), choose **Open to LAN**, then **Start LAN World**.
-   SkyCraft's bundled [e4mc](https://modrinth.com/mod/e4mc) puts a link like `abc-def.e4mc.link`
-   in chat. Click it to copy it, then send it to your friends.
-2. **Friends:** press **T** and type `/join abc-def.e4mc.link`. Your Minecraft leaves its own
-   world and joins the host's.
-3. **`/leave`** goes back to your own world. If the host closes their world, you're put back in
-   yours automatically.
-
-**With Discord:** your Discord status shows SkyCraft while you play. Once you've opened your world
-to LAN it has a **Join** button (and you can invite friends from a Discord chat). A friend with
-Skyrim and SkyCraft already running clicks it and joins you, no link needed.
-
-## Controls
-
-Minecraft has priority. These keys still go to Skyrim:
+There is no published release yet; build from source.
 
 | Key | Does |
 |---|---|
-| **G** | Skyrim activate: doors, NPCs (talk), containers, levers, furniture |
-| **Esc** | Skyrim menu (or closes an open Minecraft screen) |
-| **J** / **M** | Skyrim journal / map |
-| **H** | Skyrim wait |
-| **F9** | Skyrim quickload (save from the Esc menu) |
-| **~** | Skyrim console |
-| **O** | Minecraft pause / options menu |
-
-Every other key is Minecraft's: **E** inventory, **F5** camera, **T** chat, **/** commands,
-**Shift** crouch/sneak, and so on.
-
-## Known limitations
-
-- If something goes wrong, `Documents\My Games\Skyrim Special Edition\SKSE\SkyCraft.log` says what.
-  For bug reports, set `bDiagnostics = 1` in `SkyCraft.ini` for detailed logs.
-- **Stuck on "SkyCraft: starting Minecraft..."?** After a minute SkyCraft says which of these it is:
-  - Prism Launcher is still busy. Alt-Tab to it: it may be downloading, or need you to sign in,
-    or show an error.
-  - Minecraft closed. Its log is
-    `%LOCALAPPDATA%\SkyCraft\Prism\instances\SkyCraft\.minecraft\logs\latest.log`.
-  - Minecraft is running but not responding. Please report it, with `SkyCraft.log` and that
-    `latest.log`.
-
-  You need to own Minecraft: Java Edition.
-
-- Skyrim's opening (cart ride and Helgen) may leave you stuck. Use
-  [Alternate Start](https://www.nexusmods.com/skyrimspecialedition/mods/272) or a save made after Helgen.
-- Skyrim's inventory, magic, shouts and perks can't be opened while Minecraft drives the player.
-- Minecraft hits only reach NPCs, not Skyrim objects such as the web around Arvel in Bleak Falls
-  Barrow. There's no in-game switch back to plain Skyrim yet. Closing Minecraft hands control
-  back to Skyrim; Minecraft keeps what it last autosaved, every few minutes. Deal with the object,
-  then restart Skyrim to bring Minecraft back.
-- Sign text isn't drawn yet.
-- All Skyrim interiors share one Minecraft world, so blocks placed in one interior can appear in
-  another at the same coordinates.
-- Multiplayer syncs only the Minecraft world. Each player has their own Skyrim, and guests
-  can't hit their own Skyrim NPCs yet.
-- Mods that also take over the camera (Improved Camera SE, SmoothCam, True Directional Movement)
-  will conflict.
+| **G** | PEAK interact: kiosk, luggage, campfire, items |
+| **Esc** | PEAK's pause menu (or closes an open Minecraft screen) |
+| **O** | Minecraft's pause / options menu |
+| everything else | Minecraft's |
 
 ## Building from source
 
-You need Visual Studio 2026 (C++), CMake 3.25+, Git, and JDK 25.
+You need the .NET SDK 10 and JDK 25, on Windows.
 
-```bat
-git clone --recursive <this repo> skycraft
-cd skycraft
-git clone https://github.com/microsoft/vcpkg .tools\vcpkg
-.tools\vcpkg\bootstrap-vcpkg.bat
-
-cd skse
-cmake --preset default
-cmake --build --preset release
-
-cd ..\fabric
-gradlew build
-
-cd ..
-powershell -ExecutionPolicy Bypass -File tools\package.ps1 -NoBuild
+```sh
+cd fabric && gradlew build            # writes fabric/build/libs/skycraft-<version>.jar
+dotnet build peak -c Release          # writes peak/artifacts/thunderstore/release/*.zip
 ```
 
-`tools\package.ps1` builds both halves (drop `-NoBuild`) and writes the release files to `dist\`.
+Copy `peak/Config.Build.user.props.template` to `peak/Config.Build.user.props` if PEAK or your
+BepInEx profile are not in the default places.
 
-For development:
-
-- `fabric\gradlew runClient` starts a dev Minecraft that stays running when Skyrim closes.
-- With `SKYCRAFT_DEPLOY_DIR` (preset default: the MO2 mod folder `mods\SkyCraft`, if it exists),
-  each plugin build is copied straight into Mod Organizer.
-- `docs\DESIGN.md` explains how the two halves fit together, and `protocol\skycraft_protocol.h`
-  is the shared-memory layout both sides follow.
+## How it fits together
 
 | Folder | |
 |---|---|
-| `skse/` | The Skyrim SKSE plugin (C++, [CommonLibSSE-NG](https://github.com/alandtse/CommonLibVR/tree/ng)) |
-| `fabric/` | The Minecraft Fabric mod (Java) |
-| `protocol/` | The shared-memory protocol between them |
-| `tools/` | Packaging, test stand-ins (`fake_skyrim.py`, `fake_guest.py`) and diagnostics |
+| `peak/` | The PEAK host plugin (C#, BepInEx 5, HarmonyX). New in PeakCraft |
+| `fabric/` | The Minecraft Fabric mod (Java). SkyCraft's, with four small changes |
+| `protocol/` | The shared-memory layout both sides follow. SkyCraft's, unchanged |
+| `skse/` | SkyCraft's Skyrim plugin (C++). Unchanged and not used by PeakCraft; kept so the fork can still build SkyCraft (for the Skyrim host run Minecraft with `-Dskycraft.firstPersonAvatar=false`; the world now starts in Creative with digging off) |
+| `tools/` | Packaging, launch scripts and test stand-ins (`fake_minecraft.py`, `fake_skyrim.py`) |
+
+## Documentation
+
+| Document | What it is |
+|---|---|
+| [docs/PORTING-GUIDE.md](docs/PORTING-GUIDE.md) | How to build a host plugin like this for another game: the link, ownership, collision, camera, input, drawing, damage, testing. Game-agnostic |
+| [docs/DESIGN.md](docs/DESIGN.md) | SkyCraft's original design document |
+| [docs/PEAK-NOTES.md](docs/PEAK-NOTES.md) | Every PEAK class the plugin touches, patch points and measured facts |
+| [docs/PEAKCRAFT-PROGRESS.md](docs/PEAKCRAFT-PROGRESS.md) | What was verified for each part of the port, and how |
+| [docs/2026-10-02-001-feat-peakcraft-plan.md](docs/2026-10-02-001-feat-peakcraft-plan.md) | The implementation plan the port followed |
+| [docs/solutions/](docs/solutions/) | Short write-ups of problems solved, with YAML frontmatter (`module`, `tags`, `problem_type`) for searching |
+| [CONCEPTS.md](CONCEPTS.md) | The project's vocabulary: guest, host, link, ownership and so on |
+
+## Credits
+
+- **[SkyCraft](https://github.com/chasmlol/SkyCraft) by [chasmlol](https://github.com/chasmlol)**
+  is the original project. The Minecraft mod, the protocol, the two-game design and most of the
+  ideas in the porting guide are SkyCraft's. This repository keeps SkyCraft's full history.
+- PeakCraft adds the PEAK host plugin and four changes in the Minecraft mod: the mirror world
+  starts in Creative, digging is off by default, sneaking stops at the edges of the host's ground,
+  and the player's model is sent in first person too so mirrors can show it.
+- The plugin is built on [BepInEx](https://github.com/BepInEx/BepInEx),
+  [HarmonyX](https://github.com/BepInEx/HarmonyX) and the
+  [PEAK modding template](https://github.com/PEAKModding/BepInExTemplate). Third-party notices for
+  SkyCraft's own dependencies are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE), like SkyCraft. Copyright for SkyCraft remains with chasmlol.

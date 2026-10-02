@@ -213,7 +213,7 @@ public final class SkyDig {
 	 * breaking blocks in old holes digs no further); holes already dug stay. In a friend's world it's
 	 * the host's setting that counts (their server does the digging).
 	 */
-	public static volatile boolean destruction = true;
+	public static volatile boolean destruction = false;
 
 	/** Marks a cell dug out of Skyrim's geometry (in that Skyrim world). Returns false if it was already. */
 	public static boolean markDug(ServerLevel level, int world, BlockPos pos) {

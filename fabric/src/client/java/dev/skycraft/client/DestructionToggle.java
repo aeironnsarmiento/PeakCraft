@@ -70,7 +70,7 @@ public final class DestructionToggle {
 			SkyCraft.LOG.warn("SkyCraft: couldn't read {}", file(), e);
 			return;
 		}
-		SkyDig.destruction = !"false".equalsIgnoreCase(props.getProperty(KEY, "true").trim());
+		SkyDig.destruction = "true".equalsIgnoreCase(props.getProperty(KEY, String.valueOf(SkyDig.destruction)).trim());
 	}
 
 	/** Rewrites only its own line, keeping the file's comments and other settings (join=). */

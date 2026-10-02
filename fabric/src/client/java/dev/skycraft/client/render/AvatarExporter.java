@@ -103,6 +103,10 @@ final class AvatarExporter implements SubmitNodeCollector {
 	private static final AvatarExporter SCENE = new AvatarExporter();
 	private static final AvatarExporter RAGDOLL = new AvatarExporter();
 	private static long nextRagdollNanos;
+	// The host draws the player's model in first person too where a mirror can see it (McState.cameraMode
+	// says which view Minecraft is in). -Dskycraft.firstPersonAvatar=false: only in third person, as SkyCraft's
+	// Skyrim host expects.
+	private static final boolean FIRST_PERSON_AVATAR = Boolean.parseBoolean(System.getProperty("skycraft.firstPersonAvatar", "true"));
 
 	private final Map<Long, Batch> batches = new HashMap<>();
 	private final Capture capture = new Capture();
@@ -142,7 +146,7 @@ final class AvatarExporter implements SubmitNodeCollector {
 		this.atlas = atlas;
 		var player = minecraft.player;
 		Camera camera = minecraft.gameRenderer.mainCamera();
-		if (player == null || !camera.isDetached()) {
+		if (player == null || (!camera.isDetached() && !FIRST_PERSON_AVATAR)) {
 			this.sendEmpty(Proto.REN_AVATAR, false);
 			return;
 		}
