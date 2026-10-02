@@ -43,6 +43,17 @@ Flows F1 to F5 ran in one PEAK session (04:19 to 04:26): start, kiosk to island,
 - **Two more Fabric changes, asked for after the first hand-over:** `PlayerEdgeMixin` no longer switches Minecraft's sneak edge guard off; it makes `Player.canFallAtLeast` count the host's triangles as ground (verified: sneak-walking on a raised airport platform stopped at its edge with Y unchanged, walking without sneak fell off). `AvatarExporter` sends the player model in first person too (`-Dskycraft.firstPersonAvatar=false` restores SkyCraft's behaviour); the plugin draws it only for PEAK's mirror cameras while `cameraMode` is 0 (verified: the mirror shows the crouch and the raised shield in first person).
 - **Thunderstore team and plugin GUID prefix** are `aeironnarmiento` (the git user name); change `peak/Directory.Build.props` and the csproj before any upload.
 
+## Known gaps against the plan
+
+Found when re-reading every unit after the first hand-over:
+
+- **R22/R23, summit ending:** not reachable. PEAK's ending needs a flare lit at the peak, and PEAK items are a Scope Boundary ("PEAK items ... crossing into Minecraft"). The ownership code handles the ending state (`stats.won`, end screen) but it was only exercised through the death end screen. Listed in `peak/README.md` under known limitations.
+- **U4, open-air teleport edge:** not isolated (see the table).
+- **U5 verification:** the camera agrees to 0.0 cm standing and 14 cm while walking, which is more than "a few centimetres".
+- **U6, mouse buttons:** left and right were exercised (break, place, shield); the middle button was not checked on its own.
+- **U8, "no new frame keeps the last one":** true by construction (`Overlay.Update` returns without touching the texture); not checked with a stalled Minecraft.
+- **U10 file name:** the avatar is drawn by `Render/CapturedModel.cs`, not `Render/Avatar.cs`, because the same class draws the scene and the mirror body.
+
 ## Dev notes
 
 - `. .tools/env.sh` puts the local dotnet and JDK on PATH; `. .tools/dev.sh` adds helpers that drive the plugin's dev harness (`[Dev] Harness = true` in the plugin config; off again now).

@@ -29,8 +29,9 @@ island, fog and campfires, and two small mods talk through shared memory.
   PEAK's picture.
 - **Blocks:** place and break blocks anywhere. They are hidden by PEAK's rocks in front of them and
   lit by PEAK's sun. Arrows, dropped items, torches, chests and particles show too.
-- **PEAK's run:** the kiosk, the flight, the crash on the beach, luggage, campfires, the rising fog
-  and the ending all work, through one interact key (G).
+- **PEAK's run:** the kiosk, the flight, the crash on the beach, luggage, campfires, and the rising
+  fog all work, through one interact key (G). The summit ending is not reachable yet: it needs a
+  PEAK flare, and PEAK's items cannot be used while Minecraft has the body.
 - **Survival:** the world starts in Creative, where nothing on the mountain hurts you.
   `/gamemode survival` makes PEAK's hazards cost Minecraft hearts, and a Minecraft death kills
   your scout.

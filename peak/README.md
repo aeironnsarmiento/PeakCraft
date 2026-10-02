@@ -22,8 +22,9 @@ package is the PEAK half (a BepInEx plugin) and carries the Minecraft half (a Fa
   PEAK's picture.
 - **Blocks:** place and break blocks anywhere. They sit in PEAK's world, hidden by PEAK's rocks in
   front of them and lit by PEAK's sun. Arrows, dropped items, torches, chests and particles show too.
-- **PEAK's run:** the kiosk, the flight, the crash on the beach, luggage, campfires, the rising
-  fog and the ending all work as usual, through one interact key.
+- **PEAK's run:** the kiosk, the flight, the crash on the beach, luggage, campfires, and the rising
+  fog work as usual, through one interact key. The run's end screen after a death works; the
+  summit ending does not yet (see Known limitations).
 - **Survival:** the mirror world starts in Creative, where nothing on the mountain hurts you.
   `/gamemode survival` makes PEAK's hazards (fog cold, heat, poison, thorns, lava) cost Minecraft
   hearts, and a Minecraft death kills your scout.
@@ -89,6 +90,9 @@ hazard damage scale, the brightness of Minecraft's blocks and the height offset 
   alpha-clip, so faces with holes (leaves, plants, torches, item sprites) are drawn blended. They
   cast no shadow and can sort oddly against other see-through things. Minecraft's own light
   sources (torches, lava) do not light PEAK.
+- **The summit ending cannot be reached yet.** PEAK ends a run when a flare is lit at the peak,
+  and PEAK's items cannot be held or used while Minecraft has the body. You can climb to the top,
+  but the run only ends through a death or PEAK's pause menu.
 - **PEAK's items do not cross over.** Picking one up with G puts it in PEAK's inventory, which is
   hidden and unused while Minecraft has the body. Stamina, hunger and weight are ignored.
 - **No digging into the mountain**, no water or lava flowing over PEAK's terrain, and explosions
