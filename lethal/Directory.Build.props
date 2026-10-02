@@ -1,0 +1,43 @@
+<Project>
+  <PropertyGroup>
+    <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
+  </PropertyGroup>
+
+  <!-- Import our shared user configuration file -->
+  <Import
+    Project="$(SolutionRoot)Config.Build.user.props"
+    Condition="Exists('$(SolutionRoot)Config.Build.user.props')"
+  />
+
+  <!-- Shared Thunderstore metadata -->
+  <PropertyGroup>
+    <ThunderstoreTeam>lethalcraft</ThunderstoreTeam>
+    <RepositoryUrl></RepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Shared primary configuration for the project -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>recommended</AnalysisMode>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+  </PropertyGroup>
+
+  <!--
+    Lethal Company lives in a Steam library; BepInEx lives in a mod-manager profile (Thunderstore Mod
+    Manager / r2modman / Gale), not in the game folder. Both paths are overridable in Config.Build.user.props.
+  -->
+  <PropertyGroup>
+    <PathBeforeSteam Condition="$([MSBuild]::IsOSPlatform('Linux'))">$(HOME)/.local/share/</PathBeforeSteam>
+    <PathBeforeSteam Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(MSBuildProgramFiles32)/</PathBeforeSteam>
+    <LCGameRootDir Condition="$(LCGameRootDir) == ''">$(PathBeforeSteam)Steam/steamapps/common/Lethal Company/</LCGameRootDir>
+    <LCBepInExDir Condition="$(LCBepInExDir) == ''">$(LCGameRootDir)/BepInEx/</LCBepInExDir>
+    <ManagedDir>$(LCGameRootDir)/Lethal Company_Data/Managed/</ManagedDir>
+  </PropertyGroup>
+</Project>
